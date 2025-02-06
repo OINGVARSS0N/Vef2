@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="is">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript</title>
+</head>
+<body>
+    <h1>JavaScript</h1>
+    <form>
+<fieldset>
+            <legend>Hvað er skrifað út eftir að eftirfarandi kóði er keyrður?
+
+const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+const іtem = items
+  .map((i) => i * 2)
+  .filter(
+    (i) => i < 10
+  )
+  .find((i) => i > 6)
+
+
+console.log(item);</legend>
+<label>
+                <input type="radio" name="question0" value="0">
+                8
+            </label><br>
+<label>
+                <input type="radio" name="question0" value="1">
+                [8]
+            </label><br>
+<label>
+                <input type="radio" name="question0" value="2">
+                Uncaught ReferenceError: item is not defined
+            </label><br>
+<label>
+                <input type="radio" name="question0" value="3">
+                undefined
+            </label><br>
+</fieldset>
+<fieldset>
+            <legend>Þegar við berum saman gildi í JavaScript ættum við alltaf að nota þrjú samasem merki (`===`) því að</legend>
+<label>
+                <input type="radio" name="question1" value="0">
+                Þessi samanburður byrjar á að bera saman týpur gilda og kemst því framhjá type coercion sem gerist með samanburð með tveimur samasem merkjum.
+            </label><br>
+<label>
+                <input type="radio" name="question1" value="1">
+                Við ættum alltaf að nota tvö samasem merki, ekki þrjú því þá byrjum við á að bera saman týpur gilda og komumst þannig framhjá type coercion.
+            </label><br>
+<label>
+                <input type="radio" name="question1" value="2">
+                Þessi samanburður kemst framhjá truthy og falsy gildum og skilar eingöngu réttum niðurstöðum fyrir primitive gildi.
+            </label><br>
+<label>
+                <input type="radio" name="question1" value="3">
+                Þessi samanburður nýtir lógíska virkja sem virka aðeins í tvístæðum.
+            </label><br>
+</fieldset>
+<button type="button" onclick="checkAnswers()">Staðfesta svör</button>
+    </form>
+    <script>
+        function checkAnswers() {
+            const questions = [{"question":"Hvað er skrifað út eftir að eftirfarandi kóði er keyrður?\n\nconst items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];\n\nconst іtem = items\n  .map((i) => i * 2)\n  .filter(\n    (i) => i < 10\n  )\n  .find((i) => i > 6)\n\n\nconsole.log(item);","answers":[{"answer":"8","correct":true},{"answer":"[8]","correct":false},{"answer":"Uncaught ReferenceError: item is not defined","correct":false},{"answer":"undefined","correct":false}]},{"question":"Þegar við berum saman gildi í JavaScript ættum við alltaf að nota þrjú samasem merki (`===`) því að","answers":[{"answer":"Þessi samanburður byrjar á að bera saman týpur gilda og kemst því framhjá type coercion sem gerist með samanburð með tveimur samasem merkjum.","correct":true},{"answer":"Við ættum alltaf að nota tvö samasem merki, ekki þrjú því þá byrjum við á að bera saman týpur gilda og komumst þannig framhjá type coercion.","correct":false},{"answer":"Þessi samanburður kemst framhjá truthy og falsy gildum og skilar eingöngu réttum niðurstöðum fyrir primitive gildi.","correct":false},{"answer":"Þessi samanburður nýtir lógíska virkja sem virka aðeins í tvístæðum.","correct":false}]}];
+            questions.forEach((question, index) => {
+                const selected = document.querySelector(`input[name="question${index}"]:checked`);
+                if (selected) {
+                    const answerIndex = parseInt(selected.value);
+                    if (question.answers[answerIndex].correct) {
+                        alert(`Spurning ${index + 1}: Rétt!`);
+                    } else {
+                        alert(`Spurning ${index + 1}: Rangt!`);
+                    }
+                } else {
+                    alert(`Spurning ${index + 1}: Ekkert svar valið!`);
+                }
+            });
+        }
+    </script>
+</body>
+</html>

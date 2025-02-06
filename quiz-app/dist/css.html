@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="is">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS</title>
+</head>
+<body>
+    <h1>CSS</h1>
+    <form>
+<fieldset>
+            <legend>Fyrir eftirfarandi HTML / for the following HTML:
+
+
+<div class="text">
+  <h1 class="important text__title">Halló heimur</p>
+</div>
+ 
+
+Er skilgreint CSS / there is defined CSS:
+
+
+.text {
+  font-size: 10px;
+  color: green;
+}
+
+.text .text__title {
+  font-size: 1.5em;
+}
+
+.important {
+  font-size: 2em;
+  color: red;
+}
+
+ 
+
+Hvert af eftirfarandi er satt fyrir textann „Halló heimur“ eftir að búið er að reikna gildi?</legend>
+<label>
+                <input type="radio" name="question0" value="0">
+                font-size: 20px;, color: green;
+            </label><br>
+<label>
+                <input type="radio" name="question0" value="1">
+                font-size: 15px;, color: red;
+            </label><br>
+<label>
+                <input type="radio" name="question0" value="2">
+                font-size: 20px;, color: red;
+            </label><br>
+<label>
+                <input type="radio" name="question0" value="3">
+                font-size: 15px;, color: green;
+            </label><br>
+</fieldset>
+<fieldset>
+            <legend>Ef við erum að nota nýtt gildi fyrir lit í CSS sem er ekki víst að sé stutt í öllum vöfrum, þá ættum við að</legend>
+<label>
+                <input type="radio" name="question1" value="0">
+                Skilgreina fallback gildi á undan nýja gildinu sem væri notað í stað þess ef það er ekki stutt
+            </label><br>
+<label>
+                <input type="radio" name="question1" value="1">
+                Skilgreina fallback gildi á eftir nýja gildinu sem væri notað í stað þess ef það er ekki stutt.
+            </label><br>
+<label>
+                <input type="radio" name="question1" value="2">
+                Setja upp JavaScript virkni sem bendir notanda á að sækja nýjann vafra sem styður gildið.
+            </label><br>
+<label>
+                <input type="radio" name="question1" value="3">
+                Þetta er ekki stutt í CSS.
+            </label><br>
+</fieldset>
+<fieldset>
+            <legend>Í verkefnum höfum við unnið með „containers“ og „items“ sem hugtök, hvað á það við?</legend>
+<label>
+                <input type="radio" name="question2" value="0">
+                „Flex container“ og „flex items; „grid container“ og „grid items“: greinarmunur á foreldri og börnum þegar flexbox og CSS grid er notað.
+            </label><br>
+<label>
+                <input type="radio" name="question2" value="1">
+                „Flex container“ og „flex items: greinarmunur á foreldri og börnum eingngu þegar flexbox er notað.
+            </label><br>
+<label>
+                <input type="radio" name="question2" value="2">
+                „Grid container“ og „grid items“: greinarmunur á foreldri og börnum eingöngu þegar grid er notað.
+            </label><br>
+<label>
+                <input type="radio" name="question2" value="3">
+                Hugtök sem eru notuð með `querySelectorAll`: „container“ er það element sem leitað er undir, „items“ það sem er skilað.
+            </label><br>
+</fieldset>
+<fieldset>
+            <legend>Þegar við notum flexbox hvað af eftirfarandi er satt? Gerið ráð fyrir að skjal sé lesið frá vinstri til hægri.</legend>
+<label>
+                <input type="radio" name="question3" value="0">
+                Höfum skilgreinda tvo ása: aðalás og krossás sem eru hornréttir; sjálfgefin röðun er á aðalás frá vinstri til hægri.
+            </label><br>
+<label>
+                <input type="radio" name="question3" value="1">
+                Höfum skilgreinda tvo ása: aðalás og krossás sem eru samsíða; sjálfgefin röðun er á aðalás frá vinstri til hægri.
+            </label><br>
+<label>
+                <input type="radio" name="question3" value="2">
+                Höfum skilgreinda tvo ása: aðalás og krossás sem eru hornréttir; sjálfgefin röðun er á krossás frá vinstri til hægri.
+            </label><br>
+<label>
+                <input type="radio" name="question3" value="3">
+                Höfum skilgreinda tvo ása: aðalás og krossás sem eru samsíða; sjálfgefin röðun er á krossás frá vinstri til hægri.
+            </label><br>
+</fieldset>
+<button type="button" onclick="checkAnswers()">Staðfesta svör</button>
+    </form>
+    <script>
+        function checkAnswers() {
+            const questions = [{"question":"Fyrir eftirfarandi HTML / for the following HTML:\n\n\n<div class=\"text\">\n  <h1 class=\"important text__title\">Halló heimur</p>\n</div>\n \n\nEr skilgreint CSS / there is defined CSS:\n\n\n.text {\n  font-size: 10px;\n  color: green;\n}\n\n.text .text__title {\n  font-size: 1.5em;\n}\n\n.important {\n  font-size: 2em;\n  color: red;\n}\n\n \n\nHvert af eftirfarandi er satt fyrir textann „Halló heimur“ eftir að búið er að reikna gildi?","answers":[{"answer":"font-size: 20px;, color: green;","correct":true},{"answer":"font-size: 15px;, color: red;","correct":false},{"answer":"font-size: 20px;, color: red;","correct":false},{"answer":"font-size: 15px;, color: green;","correct":false}]},{"question":"Ef við erum að nota nýtt gildi fyrir lit í CSS sem er ekki víst að sé stutt í öllum vöfrum, þá ættum við að","answers":[{"answer":"Skilgreina fallback gildi á undan nýja gildinu sem væri notað í stað þess ef það er ekki stutt","correct":true},{"answer":"Skilgreina fallback gildi á eftir nýja gildinu sem væri notað í stað þess ef það er ekki stutt.","correct":false},{"answer":"Setja upp JavaScript virkni sem bendir notanda á að sækja nýjann vafra sem styður gildið.","correct":false},{"answer":"Þetta er ekki stutt í CSS.","correct":false}]},{"question":"Í verkefnum höfum við unnið með „containers“ og „items“ sem hugtök, hvað á það við?","answers":[{"answer":"„Flex container“ og „flex items; „grid container“ og „grid items“: greinarmunur á foreldri og börnum þegar flexbox og CSS grid er notað.","correct":true},{"answer":"„Flex container“ og „flex items: greinarmunur á foreldri og börnum eingngu þegar flexbox er notað.","correct":false},{"answer":"„Grid container“ og „grid items“: greinarmunur á foreldri og börnum eingöngu þegar grid er notað.","correct":false},{"answer":"Hugtök sem eru notuð með `querySelectorAll`: „container“ er það element sem leitað er undir, „items“ það sem er skilað.","correct":false}]},{"question":"Þegar við notum flexbox hvað af eftirfarandi er satt? Gerið ráð fyrir að skjal sé lesið frá vinstri til hægri.","answers":[{"answer":"Höfum skilgreinda tvo ása: aðalás og krossás sem eru hornréttir; sjálfgefin röðun er á aðalás frá vinstri til hægri.","correct":true},{"answer":"Höfum skilgreinda tvo ása: aðalás og krossás sem eru samsíða; sjálfgefin röðun er á aðalás frá vinstri til hægri.","correct":false},{"answer":"Höfum skilgreinda tvo ása: aðalás og krossás sem eru hornréttir; sjálfgefin röðun er á krossás frá vinstri til hægri.","correct":false},{"answer":"Höfum skilgreinda tvo ása: aðalás og krossás sem eru samsíða; sjálfgefin röðun er á krossás frá vinstri til hægri.","correct":false}]}];
+            questions.forEach((question, index) => {
+                const selected = document.querySelector(`input[name="question${index}"]:checked`);
+                if (selected) {
+                    const answerIndex = parseInt(selected.value);
+                    if (question.answers[answerIndex].correct) {
+                        alert(`Spurning ${index + 1}: Rétt!`);
+                    } else {
+                        alert(`Spurning ${index + 1}: Rangt!`);
+                    }
+                } else {
+                    alert(`Spurning ${index + 1}: Ekkert svar valið!`);
+                }
+            });
+        }
+    </script>
+</body>
+</html>
