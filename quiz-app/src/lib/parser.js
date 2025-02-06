@@ -13,8 +13,16 @@ export function parseData(filePath) {
 }
 
 export function validateQuestion(question) {
-    return question && question.question && question.answers && question.answers.every(answer => answer.answer !== undefined && answer.correct !== undefined);
+    return question && 
+           typeof question.question === 'string' &&
+           Array.isArray(question.answers) && 
+           question.answers.every(answer => 
+               answer && 
+               typeof answer.answer === 'string' && 
+               typeof answer.correct === 'boolean'
+           );
 }
+
 
 export function generateHTML(questions, title) {
     let html = `<!DOCTYPE html>
