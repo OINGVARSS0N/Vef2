@@ -1,15 +1,51 @@
-<!DOCTYPE html>
-<html lang="is">
-<head>
+
+  <!DOCTYPE html>
+  <html lang="is">
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CSS</title>
-</head>
-<body>
-    <h1>CSS</h1>
-    <form>
-<fieldset>
-            <legend>Fyrir eftirfarandi HTML / for the following HTML:
+    <style>
+      body { font-family: Arial, sans-serif; text-align: left; padding: 10px; font-size: 16px; }
+      .question { margin-bottom: 1em; }
+      .answers { list-style: none; padding: 0; margin: 5px 0; }
+      .answers li { margin: 5px 0; }
+      .answer-button {
+        padding: 8px 12px;
+        border: 1px solid black;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        background: white;
+        color: black;
+        display: block;
+        margin: 0;
+      }
+      .answer-button:hover { background: #ddd; }
+      .feedback {
+        margin-top: 5px;
+        font-weight: bold;
+        font-size: 14px;
+      }
+      .correct { color: green; }
+      .incorrect { color: red; }
+      .back-button {
+        margin-top: 20px;
+        padding: 8px;
+        background: #ccc;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 14px;
+      }
+      .back-button:hover { background: #aaa; }
+    </style>
+  </head>
+  <body>
+    <h1 style="font-size: 20px;">CSS</h1>
+    
+      <div class="question">
+        <p style="margin-bottom: 5px;">Fyrir eftirfarandi HTML / for the following HTML:
 
 
 <div class="text">
@@ -36,102 +72,189 @@ Er skilgreint CSS / there is defined CSS:
 
  
 
-Hvert af eftirfarandi er satt fyrir textann „Halló heimur“ eftir að búið er að reikna gildi?</legend>
-<label>
-                <input type="radio" name="question0" value="0">
+Hvert af eftirfarandi er satt fyrir textann „Halló heimur“ eftir að búið er að reikna gildi?</p>
+        <ul class="answers">
+          
+            <li>
+              <button class="answer-button" onclick="checkAnswer(0, 0, true)">
                 font-size: 20px;, color: green;
-            </label><br>
-<label>
-                <input type="radio" name="question0" value="1">
+              
+              </button>
+              
+              <p class="feedback" id="feedback-0-0"></p>
+            </li>
+          
+            <li>
+              <button class="answer-button" onclick="checkAnswer(0, 1, false)">
                 font-size: 15px;, color: red;
-            </label><br>
-<label>
-                <input type="radio" name="question0" value="2">
+              
+              </button>
+              
+              <p class="feedback" id="feedback-0-1"></p>
+            </li>
+          
+            <li>
+              <button class="answer-button" onclick="checkAnswer(0, 2, false)">
                 font-size: 20px;, color: red;
-            </label><br>
-<label>
-                <input type="radio" name="question0" value="3">
+              
+              </button>
+              
+              <p class="feedback" id="feedback-0-2"></p>
+            </li>
+          
+            <li>
+              <button class="answer-button" onclick="checkAnswer(0, 3, false)">
                 font-size: 15px;, color: green;
-            </label><br>
-</fieldset>
-<fieldset>
-            <legend>Ef við erum að nota nýtt gildi fyrir lit í CSS sem er ekki víst að sé stutt í öllum vöfrum, þá ættum við að</legend>
-<label>
-                <input type="radio" name="question1" value="0">
+              
+              </button>
+              
+              <p class="feedback" id="feedback-0-3"></p>
+            </li>
+          
+        </ul>
+      </div>
+    
+      <div class="question">
+        <p style="margin-bottom: 5px;">Ef við erum að nota nýtt gildi fyrir lit í CSS sem er ekki víst að sé stutt í öllum vöfrum, þá ættum við að</p>
+        <ul class="answers">
+          
+            <li>
+              <button class="answer-button" onclick="checkAnswer(1, 0, true)">
                 Skilgreina fallback gildi á undan nýja gildinu sem væri notað í stað þess ef það er ekki stutt
-            </label><br>
-<label>
-                <input type="radio" name="question1" value="1">
+              
+              </button>
+              
+              <p class="feedback" id="feedback-1-0"></p>
+            </li>
+          
+            <li>
+              <button class="answer-button" onclick="checkAnswer(1, 1, false)">
                 Skilgreina fallback gildi á eftir nýja gildinu sem væri notað í stað þess ef það er ekki stutt.
-            </label><br>
-<label>
-                <input type="radio" name="question1" value="2">
+              
+              </button>
+              
+              <p class="feedback" id="feedback-1-1"></p>
+            </li>
+          
+            <li>
+              <button class="answer-button" onclick="checkAnswer(1, 2, false)">
                 Setja upp JavaScript virkni sem bendir notanda á að sækja nýjann vafra sem styður gildið.
-            </label><br>
-<label>
-                <input type="radio" name="question1" value="3">
+              
+              </button>
+              
+              <p class="feedback" id="feedback-1-2"></p>
+            </li>
+          
+            <li>
+              <button class="answer-button" onclick="checkAnswer(1, 3, false)">
                 Þetta er ekki stutt í CSS.
-            </label><br>
-</fieldset>
-<fieldset>
-            <legend>Í verkefnum höfum við unnið með „containers“ og „items“ sem hugtök, hvað á það við?</legend>
-<label>
-                <input type="radio" name="question2" value="0">
+              
+              </button>
+              
+              <p class="feedback" id="feedback-1-3"></p>
+            </li>
+          
+        </ul>
+      </div>
+    
+      <div class="question">
+        <p style="margin-bottom: 5px;">Í verkefnum höfum við unnið með „containers“ og „items“ sem hugtök, hvað á það við?</p>
+        <ul class="answers">
+          
+            <li>
+              <button class="answer-button" onclick="checkAnswer(2, 0, true)">
                 „Flex container“ og „flex items; „grid container“ og „grid items“: greinarmunur á foreldri og börnum þegar flexbox og CSS grid er notað.
-            </label><br>
-<label>
-                <input type="radio" name="question2" value="1">
+              
+              </button>
+              
+              <p class="feedback" id="feedback-2-0"></p>
+            </li>
+          
+            <li>
+              <button class="answer-button" onclick="checkAnswer(2, 1, false)">
                 „Flex container“ og „flex items: greinarmunur á foreldri og börnum eingngu þegar flexbox er notað.
-            </label><br>
-<label>
-                <input type="radio" name="question2" value="2">
+              
+              </button>
+              
+              <p class="feedback" id="feedback-2-1"></p>
+            </li>
+          
+            <li>
+              <button class="answer-button" onclick="checkAnswer(2, 2, false)">
                 „Grid container“ og „grid items“: greinarmunur á foreldri og börnum eingöngu þegar grid er notað.
-            </label><br>
-<label>
-                <input type="radio" name="question2" value="3">
+              
+              </button>
+              
+              <p class="feedback" id="feedback-2-2"></p>
+            </li>
+          
+            <li>
+              <button class="answer-button" onclick="checkAnswer(2, 3, false)">
                 Hugtök sem eru notuð með `querySelectorAll`: „container“ er það element sem leitað er undir, „items“ það sem er skilað.
-            </label><br>
-</fieldset>
-<fieldset>
-            <legend>Þegar við notum flexbox hvað af eftirfarandi er satt? Gerið ráð fyrir að skjal sé lesið frá vinstri til hægri.</legend>
-<label>
-                <input type="radio" name="question3" value="0">
+              
+              </button>
+              
+              <p class="feedback" id="feedback-2-3"></p>
+            </li>
+          
+        </ul>
+      </div>
+    
+      <div class="question">
+        <p style="margin-bottom: 5px;">Þegar við notum flexbox hvað af eftirfarandi er satt? Gerið ráð fyrir að skjal sé lesið frá vinstri til hægri.</p>
+        <ul class="answers">
+          
+            <li>
+              <button class="answer-button" onclick="checkAnswer(3, 0, true)">
                 Höfum skilgreinda tvo ása: aðalás og krossás sem eru hornréttir; sjálfgefin röðun er á aðalás frá vinstri til hægri.
-            </label><br>
-<label>
-                <input type="radio" name="question3" value="1">
+              
+              </button>
+              
+              <p class="feedback" id="feedback-3-0"></p>
+            </li>
+          
+            <li>
+              <button class="answer-button" onclick="checkAnswer(3, 1, false)">
                 Höfum skilgreinda tvo ása: aðalás og krossás sem eru samsíða; sjálfgefin röðun er á aðalás frá vinstri til hægri.
-            </label><br>
-<label>
-                <input type="radio" name="question3" value="2">
+              
+              </button>
+              
+              <p class="feedback" id="feedback-3-1"></p>
+            </li>
+          
+            <li>
+              <button class="answer-button" onclick="checkAnswer(3, 2, false)">
                 Höfum skilgreinda tvo ása: aðalás og krossás sem eru hornréttir; sjálfgefin röðun er á krossás frá vinstri til hægri.
-            </label><br>
-<label>
-                <input type="radio" name="question3" value="3">
+              
+              </button>
+              
+              <p class="feedback" id="feedback-3-2"></p>
+            </li>
+          
+            <li>
+              <button class="answer-button" onclick="checkAnswer(3, 3, false)">
                 Höfum skilgreinda tvo ása: aðalás og krossás sem eru samsíða; sjálfgefin röðun er á krossás frá vinstri til hægri.
-            </label><br>
-</fieldset>
-<button type="button" onclick="checkAnswers()">Staðfesta svör</button>
-<button type="button" onclick="window.location.href='../src/index.html'">Til baka</button>
-
-    </form>
+              
+              </button>
+              
+              <p class="feedback" id="feedback-3-3"></p>
+            </li>
+          
+        </ul>
+      </div>
+    
+    <button class="back-button" onclick="window.location.href='index.html'">Til baka</button>
     <script>
-        function checkAnswers() {
-            const questions = [{"question":"Fyrir eftirfarandi HTML / for the following HTML:\n\n\n<div class=\"text\">\n  <h1 class=\"important text__title\">Halló heimur</p>\n</div>\n \n\nEr skilgreint CSS / there is defined CSS:\n\n\n.text {\n  font-size: 10px;\n  color: green;\n}\n\n.text .text__title {\n  font-size: 1.5em;\n}\n\n.important {\n  font-size: 2em;\n  color: red;\n}\n\n \n\nHvert af eftirfarandi er satt fyrir textann „Halló heimur“ eftir að búið er að reikna gildi?","answers":[{"answer":"font-size: 20px;, color: green;","correct":true},{"answer":"font-size: 15px;, color: red;","correct":false},{"answer":"font-size: 20px;, color: red;","correct":false},{"answer":"font-size: 15px;, color: green;","correct":false}]},{"question":"Ef við erum að nota nýtt gildi fyrir lit í CSS sem er ekki víst að sé stutt í öllum vöfrum, þá ættum við að","answers":[{"answer":"Skilgreina fallback gildi á undan nýja gildinu sem væri notað í stað þess ef það er ekki stutt","correct":true},{"answer":"Skilgreina fallback gildi á eftir nýja gildinu sem væri notað í stað þess ef það er ekki stutt.","correct":false},{"answer":"Setja upp JavaScript virkni sem bendir notanda á að sækja nýjann vafra sem styður gildið.","correct":false},{"answer":"Þetta er ekki stutt í CSS.","correct":false}]},{"question":"Í verkefnum höfum við unnið með „containers“ og „items“ sem hugtök, hvað á það við?","answers":[{"answer":"„Flex container“ og „flex items; „grid container“ og „grid items“: greinarmunur á foreldri og börnum þegar flexbox og CSS grid er notað.","correct":true},{"answer":"„Flex container“ og „flex items: greinarmunur á foreldri og börnum eingngu þegar flexbox er notað.","correct":false},{"answer":"„Grid container“ og „grid items“: greinarmunur á foreldri og börnum eingöngu þegar grid er notað.","correct":false},{"answer":"Hugtök sem eru notuð með `querySelectorAll`: „container“ er það element sem leitað er undir, „items“ það sem er skilað.","correct":false}]},{"question":"Þegar við notum flexbox hvað af eftirfarandi er satt? Gerið ráð fyrir að skjal sé lesið frá vinstri til hægri.","answers":[{"answer":"Höfum skilgreinda tvo ása: aðalás og krossás sem eru hornréttir; sjálfgefin röðun er á aðalás frá vinstri til hægri.","correct":true},{"answer":"Höfum skilgreinda tvo ása: aðalás og krossás sem eru samsíða; sjálfgefin röðun er á aðalás frá vinstri til hægri.","correct":false},{"answer":"Höfum skilgreinda tvo ása: aðalás og krossás sem eru hornréttir; sjálfgefin röðun er á krossás frá vinstri til hægri.","correct":false},{"answer":"Höfum skilgreinda tvo ása: aðalás og krossás sem eru samsíða; sjálfgefin röðun er á krossás frá vinstri til hægri.","correct":false}]}];
-            questions.forEach((question, index) => {
-                const selected = document.querySelector(`input[name="question${index}"]:checked`);
-                if (selected) {
-                    const answerIndex = parseInt(selected.value);
-                    if (question.answers[answerIndex].correct) {
-                        alert(`Spurning ${index + 1}: Rétt!`);
-                    } else {
-                        alert(`Spurning ${index + 1}: Rangt!`);
-                    }
-                } else {
-                    alert(`Spurning ${index + 1}: Ekkert svar valið!`);
-                }
-            });
+      function checkAnswer(qIndex, aIndex, isCorrect) {
+        const feedbackElement = document.getElementById('feedback-' + qIndex + '-' + aIndex);
+        if (isCorrect) {
+          feedbackElement.textContent = "✔ Rétt!";
+          feedbackElement.className = "feedback correct";
+        } else {
+          feedbackElement.textContent = "✘ Rangt!";
+          feedbackElement.className = "feedback incorrect";
         }
+      }
     </script>
-</body>
-</html>
+  </body>
+  </html>
