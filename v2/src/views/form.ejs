@@ -1,20 +1,53 @@
 <%- include('header') -%>
 
+<h1>Búa til nýjan flokk</h1>
+
+<% if (errors.length > 0) { %>
+  <ul>
+    <% errors.forEach(error => { %>
+      <li style="color: red;"><%= error %></li>
+    <% }) %>
+  </ul>
+<% } %>
+
 <form method="post" action="/form">
-
-  <label for="name">Heiti flokks:</label>
-  <input type="text" id="name" name="name">
-  <input type="number" id="name" name="number">
-  <label>rétt svar #1: <input type="radio" id="name" name="rett_svar" value="1"></label>
-  <label>rétt svar #2: <input type="radio" id="name" name="rett_svar" value="1"></label>
-  <label>rétt svar #3: <input type="radio" id="name" name="rett_svar" value="1"></label>
-
-  <input type="checkbox" id="name" name="checkbox">
-  <select>
-    <option>foo</option>
-    <option value="foobar">bar</option>
+  
+  <label for="category_name">Heiti flokks:</label>
+  <input type="text" id="category_name" name="name" required>
+  
+  <label for="question_text">Spurning:</label>
+  <textarea id="question_text" name="question" required></textarea>
+  
+  <label for="category_select">Veldu flokk:</label>
+  <select id="category_select" name="category_id" required>
+    <% categories.forEach(category => { %>
+      <option value="<%= category.id %>"><%= category.name %></option>
+    <% }) %>
   </select>
-  <textarea name="text"></textarea>
+
+  <fieldset>
+    <legend>Svör (veldu rétt svar)</legend>
+    
+    <label>
+      <input type="radio" name="correct_answer" value="1" required> Rétt svar #1
+      <input type="text" name="answer1" required>
+    </label>
+    
+    <label>
+      <input type="radio" name="correct_answer" value="2"> Rétt svar #2
+      <input type="text" name="answer2" required>
+    </label>
+
+    <label>
+      <input type="radio" name="correct_answer" value="3"> Rétt svar #3
+      <input type="text" name="answer3" required>
+    </label>
+  </fieldset>
+
+  <label>
+    <input type="checkbox" name="confirm_terms" required> Ég samþykki skilmála
+  </label>
+
   <button type="submit">Búa til flokk</button>
 </form>
 

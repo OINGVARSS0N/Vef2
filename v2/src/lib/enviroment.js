@@ -45,6 +45,8 @@ export function environment(env, logger) {
     usedPort = DEFAULT_PORT;
   }
 
+  
+
   if (error) {
     return null;
   }
@@ -57,6 +59,8 @@ export function environment(env, logger) {
     port: usedPort,
     connectionString,
   };
+
+  console.log("parsedEnv", parsedEnv)
 
   return parsedEnv;
 }

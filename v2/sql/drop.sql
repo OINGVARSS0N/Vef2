@@ -1,1 +1,3 @@
-DROP TABLE IF EXISTS public.categories;
+DROP TABLE if EXISTS answers;
+DROP TABLE if EXISTS questions;
+DROP TABLE if EXISTS categories;

@@ -1,5 +1,5 @@
 import pg from 'pg';
-import { environment } from './environment.js';
+import { environment } from './enviroment.js';
 import { logger as loggerSingleton } from './logger.js';
 
 /**
@@ -110,6 +110,7 @@ export function getDatabase() {
   if (!env) {
     return null;
   }
+  console.log(env)
   db = new Database(env.connectionString, loggerSingleton);
   db.open();
 

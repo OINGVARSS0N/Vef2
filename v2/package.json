@@ -1,10 +1,15 @@
 {
   "name": "v2",
+  "type": "module",
   "version": "1.0.0",
   "description": "Verkefni 2",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test1": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "test": "jest",
+    "dev": "nodemon --env-file=.env --watch-path ./src src/server.js",
+    "setup": "node --env-file=.env ./src/setup.js"
   },
   "keywords": [],
   "author": "",

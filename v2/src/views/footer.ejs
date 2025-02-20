@@ -1,4 +1,11 @@
-
+<footer>
+    <% if (locals.loggedIn) { %>
+      <p>Innskráður notandi: <%= locals.user.name %> (<%= locals.user.username %>)</p>
+      <p><a href="/logout">Útskrá</a></p>
+    <% } else { %>
+      <p>Þú ert ekki innskráður notandi, <a href="/login">skráðu þig inn</a>.</p>
+    <% } %>
+  </footer>
 </main>
 
 </body>
