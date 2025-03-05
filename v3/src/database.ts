@@ -1,4 +1,5 @@
-import { z } from 'zod';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { string, z } from 'zod';
 import { PrismaClient } from '@prisma/client';
 
 const CategorySchema = z.object({
@@ -22,6 +23,7 @@ const CategoryToUpdateSchema = z.object({
         .string()
         .min(3, 'title must be more than two letters')
         .max(1024, 'title can be at most 1024 letters'),
+        slug: z.string()
 });
 
 type Category = z.infer<typeof CategorySchema>;
@@ -52,15 +54,19 @@ export async function getCategories(
     limit: number = 10,
     offset: number = 0,
 ): Promise<Array<Category>> {
-    const categories = mockCategories;
+    const categories = await prisma.categories.findMany({take: limit, skip: offset});
     console.log('categories :>>', categories)
     return categories
 }
 
-export function getCategory(slug: string): Category | null {
-    const cat = mockCategories.find((c) => c.slug === slug)
+export async function getCategory(slug: string): Promise<Category | null> {
+    const cat = await prisma.categories.findUnique({
+        where:{
+            slug:slug
+        },
+    })
 
-    return cat ?? null
+    return cat
 }
 
 export function validateCategory(categoryToValidate: unknown){
@@ -70,23 +76,25 @@ export function validateCategory(categoryToValidate: unknown){
 }
   
 export async function createCategory(categoryToCreate: CategoryToCreate): Promise<Category> {
+    console.log("createCategory", categoryToCreate)
     const createdCategory = await prisma.categories.create({
         data: {
-        title: categoryToCreate.title,
-        slug: categoryToCreate.title.toLowerCase().replace(' ', '-'),
+            title: categoryToCreate.title,
+            slug: categoryToCreate.title.toLowerCase().replace(' ', '-'),
         },
     });
 
+    console.log("createdCategory", createdCategory)
     return createdCategory
 }
-export async function updateCategory(categoryToUpdate: CategoryToUpdate): Promise<Category> {
+export async function updateCategory(slug: string, title: string): Promise<Category> {
     const updateCategory = await prisma.categories.update({
         where: {
-            title: categoryToUpdate.title,
+            slug: slug,
         },
         data: {
-            title: categoryToUpdate.title,
-            slug: categoryToUpdate.title.toLowerCase().replace(' ', '-'),
+            title: title,
+            slug: title.toLowerCase().replace(' ', '-'),
         },
     });
 

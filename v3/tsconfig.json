@@ -3,10 +3,12 @@
     "target": "ESNext",
     "module": "NodeNext",
     "strict": true,
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,
     "skipLibCheck": true,
     "types": [
-      "node"
+      "node",
     ],
     "jsx": "react-jsx",
     "jsxImportSource": "hono/jsx",

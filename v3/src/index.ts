@@ -1,6 +1,6 @@
 import { serve } from '@hono/node-server'
 import { Hono } from 'hono'
-import { createCategory, getCategories, getCategory, validateCategory, updateCategory, deleteCategory } from './categories.db.js'
+import { createCategory, getCategories, getCategory, validateCategory, updateCategory, deleteCategory } from './database.ts'
 
 const app = new Hono()
 
@@ -14,10 +14,12 @@ app.get('/categories', async (c) => {
   return c.json(categories)
 })
 
-app.get('/categories/:slug', (c) => {
+app.get('/categories/:slug', async (c) => {
   const slug = c.req.param('slug')
 
-  const category = getCategory(slug);
+  console.log(slug)
+
+  const category = await getCategory(slug);
 
   if (!category) {
     return c.json({ message: 'not found' }, 404)
@@ -32,6 +34,7 @@ app.post('/category', async (c) => {
     categoryToCreate = await c.req.json();
     console.log(categoryToCreate);
   } catch (e) {
+    console.error(e);
     return c.json({ error: 'invalid json'}, 400)
   }
 
@@ -47,11 +50,13 @@ app.post('/category', async (c) => {
 })
 
 app.patch('/category/:slug', async (c) => {
+  const slug = c.req.param('slug')
   let categoryToUpdate: unknown;
   try {
     categoryToUpdate = await c.req.json();
     console.log(categoryToUpdate);
   } catch (e) {
+    console.error(e);
     return c.json({ error: 'invalid json'}, 400)
   }
 
@@ -65,7 +70,7 @@ app.patch('/category/:slug', async (c) => {
     return c.json({ error: 'invalid data', errors: validCategory.error.flatten() }, 400)
     }
 
-  const updatedCategory = await updateCategory(validCategory.data);
+  const updatedCategory = await updateCategory(slug, validCategory.data.title);
 
   return c.json(updatedCategory, 200)
 
@@ -73,17 +78,18 @@ app.patch('/category/:slug', async (c) => {
 
 app.delete('/category/:slug', async (c) => {
   const slug = c.req.param('slug');
-  const category = getCategory(slug);
+  const category = await getCategory(slug);
 
   if(!category) {
     return c.json({ error: 'category not found'}, 404)
   }
 
   try {
-    deleteCategory({ slug });
+    await deleteCategory({ slug });
     
     return c.body(null, 204)
-  } catch (error) {
+  } catch (e) {
+    console.error(e);
     return c.json({ error: 'category not deleted'}, 500)
   }
 
@@ -95,3 +101,5 @@ serve({
 }, (info) => {
   console.log(`Server is running on http://localhost:${info.port}`)
 })
+
+export default app;
