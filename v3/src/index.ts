@@ -134,7 +134,11 @@ app.post('/question', async (c) => {
     return c.json({ error: 'invalid data', errors: validQuestion.error.flatten() }, 400);
   }
 
-  const createdQuestion = await createQuestion(validQuestion.data);
+  const createdQuestion = await createQuestion({
+    text: validQuestion.data.text,
+    categoryId: validQuestion.data.categoryId,
+  });
+
   return c.json(createdQuestion, 201);
 });
 
@@ -154,7 +158,12 @@ app.patch('/question/:id', async (c) => {
     return c.json({ error: 'invalid data', errors: validQuestion.error.flatten() }, 400);
   }
 
-  const updatedQuestion = await updateQuestion(id, validQuestion.data);
+  const updatedQuestion = await updateQuestion({
+    id,
+    text: validQuestion.data.text,
+    categoryId: validQuestion.data.categoryId,
+  });
+
   return c.json(updatedQuestion, 200);
 });
 
