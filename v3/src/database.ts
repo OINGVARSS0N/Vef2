@@ -1,7 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { string, z } from 'zod';
-import { PrismaClient } from '@prisma/client';
+import { z } from 'zod';
+import { PrismaClient, type Questions } from '@prisma/client';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const CategorySchema = z.object({
     id: z.number(),
     title: z
@@ -18,35 +18,44 @@ const CategoryToCreateSchema = z.object({
         .max(1024, 'title can be at most 1024 letters'),
 });
 
-const CategoryToUpdateSchema = z.object({
-    title: z
-        .string()
-        .min(3, 'title must be more than two letters')
-        .max(1024, 'title can be at most 1024 letters'),
-        slug: z.string()
+export const AnswerSchema = z.object({
+    text: z.string().min(1),
+    correct: z
+            .boolean()
+            .default(false),
 });
+
+export const QuestionSchema = z.object({
+    id: z.number(),
+    text: z
+        .string()
+        .min(3, 'question must be more than 2 letter long')
+        .max(1024, 'question can be at most 1024 letters'),
+    categoryId: z.number(),
+})
+
+
+export const QuestionToCreateSchema = z.object({
+    text: z
+        .string()
+        .min(3, 'question must be more than 2 letter long')
+        .max(1024, 'question can be at most 1024 letters'),
+    categoryId: z.number(),
+})
+
+export const QuestionToUpdateSchema = z.object({
+    id: z.number(),
+    text: z
+        .string()
+        .min(3, 'question must be more than 2 letter long')
+        .max(1024, 'question can be at most 1024 letters'),
+})
 
 type Category = z.infer<typeof CategorySchema>;
 type CategoryToCreate = z.infer<typeof CategoryToCreateSchema>;
-type CategoryToUpdate = z.infer<typeof CategoryToUpdateSchema>;
+type QuestionToCreate = z.infer<typeof QuestionToCreateSchema>;
+type QuestionToUpdate = z.infer<typeof QuestionToUpdateSchema>;
 
-const mockCategories: Array<Category> = [
-    {
-      id: 1,
-      slug: 'html',
-      title: 'HTML',
-    },
-    {
-      id: 2,
-      slug: 'css',
-      title: 'CSS',
-    },
-    {
-      id: 3,
-      slug: 'js',
-      title: 'JavaScript',
-    },
-  ];
 
 const prisma = new PrismaClient();
 
@@ -109,4 +118,85 @@ export async function deleteCategory(category: { slug: string}) {
     })
 
     return deleteCategory
+}
+
+export function validateQuestion(questionToValidate: unknown){
+    const result = CategoryToCreateSchema.safeParse(questionToValidate);
+  
+    return result
+}
+
+export async function getQuestions(
+    limit: number = 25,
+    offset: number = 0,
+): Promise<Array<Questions>> {
+    const questions = await prisma.questions.findMany({
+        take: limit, 
+        skip: offset,
+        include: {
+            answers: true,
+        }
+    });
+
+    return questions
+}
+
+export async function getQuestion(id: number): Promise<Questions | null> {
+    const question = await prisma.questions.findUnique({ 
+        where: { id }, 
+    });
+
+    return question
+}
+
+export async function getQuestionsFromCategory(
+    categoryId: number, 
+  ): Promise<Array<Questions>> {
+    const questions = await prisma.questions.findMany({
+        where: {
+            categoryID: categoryId,
+        },
+        include: {
+            answers: true
+        },
+    });
+  
+    return questions;
+  }
+
+export async function createQuestion(questionToCreate: QuestionToCreate): Promise<Questions> {
+   
+    const createdQuestion = await prisma.questions.create({
+        data: {
+            text: questionToCreate.text,
+            categoryID: questionToCreate.categoryId,
+        }
+    })
+
+    return createdQuestion
+}
+
+export async function updateQuestion(questionToUpdate: QuestionToUpdate): Promise<QuestionToUpdate> {
+    
+    const updateQuestion = await prisma.questions.update({
+        where: {
+            id: questionToUpdate.id
+        },
+        data: {
+            text: questionToUpdate.text,
+        },
+    });
+
+    return updateQuestion
+}
+
+
+export async function deleteQuestion(questionToDelete: { id: number }) {
+    const deleteQuestion = await prisma.questions.delete({
+        where: {
+            id: questionToDelete.id,
+        },
+    })
+
+    return deleteQuestion
 }
