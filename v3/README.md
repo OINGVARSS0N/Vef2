@@ -1,5 +1,6 @@
+npm install
 ```
-npm run build
+npm start
 npm test
 npm run dev
 ```
