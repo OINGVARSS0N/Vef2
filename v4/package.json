@@ -11,10 +11,13 @@
   "dependencies": {
     "@hono/zod-validator": "^0.4.3",
     "@prisma/client": "^6.5.0",
+    "@radix-ui/react-slot": "^1.1.2",
+    "clsx": "^2.1.1",
     "hono": "^4.7.5",
     "next": "15.2.3",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "tailwind-merge": "^3.0.2"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
