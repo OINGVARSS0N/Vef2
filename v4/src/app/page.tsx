@@ -1,12 +1,10 @@
+'use client'; // Mark this component as a Client Component
+
 import React from 'react';
+import { useRouter } from 'next/navigation'; // Use Next.js's useRouter for navigation
 import Layout from './layout';
 import { List } from '../../components/List';
-
-interface Category {
-  id: number;
-  name: string;
-  slug: string;
-}
+import { Category } from '../types'; // Import shared Category type
 
 const initialCategories: Category[] = [
   { id: 1, name: 'Flokkur 1', slug: 'flokkur-1' },
@@ -15,6 +13,12 @@ const initialCategories: Category[] = [
 ];
 
 const HomePage = () => {
+  const router = useRouter(); // Initialize the router
+
+  const handleItemClick = (category: Category) => {
+    router.push(`/flokkar/${category.slug}`); // Use router.push for navigation
+  };
+
   return (
     <Layout>
       <div className="text-center mb-8">
@@ -26,9 +30,7 @@ const HomePage = () => {
       <List
         items={initialCategories}
         title="Flokkar"
-        onItemClick={(category) => {
-          window.location.href = `/flokkar/${category.slug}`;
-        }}
+        onItemClick={handleItemClick} 
       />
     </Layout>
   );

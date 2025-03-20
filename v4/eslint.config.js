@@ -1,41 +1,40 @@
-const path = require('path');
-const { fileURLToPath } = require('url');
+import globals from "globals";
+import pluginJs from "@eslint/js";
+import tseslint from "typescript-eslint";
+import pluginReact from "eslint-plugin-react";
+import pluginNext from "@next/eslint-plugin-next";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-module.exports = [
+/** @type {import('eslint').Linter.FlatConfig[]} */
+export default [
   {
-    files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
-    extends: [
-      'eslint:recommended',
-      'plugin:@typescript-eslint/recommended',
-      'plugin:react-hooks/recommended',
-      'plugin:jsx-a11y/recommended',
-      'next/core-web-vitals', // Use the Next.js recommended rules
-      'prettier', // Ensure Prettier is the last extension
-    ],
-    parser: '@typescript-eslint/parser',
-    parserOptions: {
-      project: ['./tsconfig.json'], // Path to your tsconfig.json
-      sourceType: 'module',
-      ecmaVersion: 'latest',
-      ecmaFeatures: {
-        jsx: true,
+    files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"],
+    languageOptions: {
+      globals: {
+        ...globals.browser,
       },
+      sourceType: "module",
     },
-    plugins: ['@typescript-eslint', 'react-hooks', 'jsx-a11y'],
+  },
+  {
+    files: ["**/*.js"],
+    languageOptions: {
+      sourceType: "script",
+    },
+  },
+  pluginJs.configs.recommended,
+  ...tseslint.configs.recommended,
+  {
+    plugins: {
+      react: pluginReact,
+      "@next/next": pluginNext,
+    },
     rules: {
-      // Your custom rules (or overrides) can go here
-      'react/react-in-jsx-scope': 'off', // Next.js handles this
-      '@typescript-eslint/no-unused-vars': 'warn', // Or 'error'
-      '@typescript-eslint/explicit-function-return-type': 'off',
-      '@typescript-eslint/no-explicit-any': 'warn', // Or 'error'
-      'no-unused-vars': 'off', // Disable the default no-unused-vars rule
+      ...pluginReact.configs.recommended.rules,
+      ...pluginNext.configs.recommended.rules,
     },
     settings: {
       react: {
-        version: 'detect',
+        version: "detect",
       },
     },
   },

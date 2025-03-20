@@ -2,10 +2,11 @@
 
 import React, { useState } from 'react';
 import Layout from '@/app/layout';
-import { List } from 'components/List';
+import { List } from 'components/List'; // Corrected import path
 import { Detail } from 'components/Detail';
 import { notFound } from 'next/navigation';
 import { Button } from 'components/Button';
+import { useRouter } from 'next/router';
 
 interface Answer {
   id: number;
@@ -27,17 +28,10 @@ interface Category {
 }
 
 interface ListItem {
-    id: number;
-    name: string;
-    slug?: string;
-    description?: string;
-}
-
-// Define the PageProps type
-interface PageProps {
-  params: {
-    slug: string;
-  };
+  id: number;
+  name: string;
+  slug?: string;
+  description?: string;
 }
 
 const initialCategories: Category[] = [
@@ -47,43 +41,43 @@ const initialCategories: Category[] = [
 ];
 
 const initialQuestions: Question[] = [
-    {
-      id: 1,
-      text: 'Hvað er höfuðborg Íslands?',
-      answers: [
-        { id: 1, text: 'Reykjavík', correct: true },
-        { id: 2, text: 'Kópavogur', correct: false },
-        { id: 3, text: 'Hafnarfjörður', correct: false },
-      ],
-        name: "Hvað er höfuðborg Íslands?"
-    },
-    {
-        id: 2,
-        text: "Hvað er hæsta fjall Íslands?",
-        answers: [
-            {id: 4, text: "Snæfell", correct: false},
-            {id: 5, text: "Herðubreið", correct: false},
-            {id: 6, text: "Hálfdán", correct: false},
-            {id: 7, text: "Hvannadalshnúkur", correct: true}
-        ],
-        name: "Hvað er hæsta fjall Íslands?"
-    }
+  {
+    id: 1,
+    text: 'Hvað er höfuðborg Íslands?',
+    answers: [
+      { id: 1, text: 'Reykjavík', correct: true },
+      { id: 2, text: 'Kópavogur', correct: false },
+      { id: 3, text: 'Hafnarfjörður', correct: false },
+    ],
+    name: "Hvað er höfuðborg Íslands?"
+  },
+  {
+    id: 2,
+    text: "Hvað er hæsta fjall Íslands?",
+    answers: [
+      { id: 4, text: "Snæfell", correct: false },
+      { id: 5, text: "Herðubreið", correct: false },
+      { id: 6, text: "Hálfdán", correct: false },
+      { id: 7, text: "Hvannadalshnúkur", correct: true }
+    ],
+    name: "Hvað er hæsta fjall Íslands?"
+  }
 ];
 
 const getQuestionsByCategorySlug = (slug: string) => {
   if (slug === 'flokkur-1') {
     return [initialQuestions[0]];
   }
-    if (slug === 'flokkur-2') {
-        return [initialQuestions[1]];
-    }
+  if (slug === 'flokkur-2') {
+    return [initialQuestions[1]];
+  }
   return [];
 };
 
-const CategoryPage = ({ params }: PageProps) => {
+const CategoryPage = () => {
+  const router = useRouter();
+  const { slug } = router.query;
   const [selectedItem, setSelectedItem] = useState<Question | null>(null);
-
-  const { slug } = params;
 
   const category = initialCategories.find((c) => c.slug === slug);
 
@@ -91,19 +85,18 @@ const CategoryPage = ({ params }: PageProps) => {
     notFound();
   }
 
-  const questions = getQuestionsByCategorySlug(slug);
+  const questions = getQuestionsByCategorySlug(slug as string);
 
-    const handleItemClick = (item: ListItem) => {
-        const selectedQuestion = questions.find(q => q.name === item.name);
-        if(selectedQuestion){
-             setSelectedItem(selectedQuestion);
-        }
+  const handleItemClick = (item: ListItem) => {
+    const selectedQuestion = questions.find(q => q.name === item.name);
+    if (selectedQuestion) {
+      setSelectedItem(selectedQuestion);
+    }
+  };
 
-    };
-
-    const handleBackToList = () => {
-        setSelectedItem(null);
-    };
+  const handleBackToList = () => {
+    setSelectedItem(null);
+  };
 
   return (
     <Layout>
@@ -111,25 +104,25 @@ const CategoryPage = ({ params }: PageProps) => {
         <h2 className="text-2xl font-semibold text-gray-800">Flokkur: {category.name}</h2>
         <p className="mt-2 text-gray-600">Spurningar í þessum flokki:</p>
       </div>
-        {selectedItem ? (
-            <div
-            >
-                <Detail question={selectedItem} />
-                <Button onClick={handleBackToList} variant="outline" className="mt-4">
-                    Til baka í lista
-                </Button>
-            </div>
-        ) : (
-            <List
-              items={questions.map(q => ({
-                id: q.id,
-                name: q.name,
-                description: q.text
-              }))}
-              title={`Spurningar í ${category.name}`}
-              onItemClick={handleItemClick}
-            />
-        )}
+      {selectedItem ? (
+        <div>
+          <Detail question={selectedItem} />
+          <Button onClick={handleBackToList} variant="outline" className="mt-4">
+            Til baka í lista
+          </Button>
+        </div>
+      ) : (
+        <List
+          items={questions.map(q => ({
+            id: q.id,
+            name: q.name,
+            description: q.text,
+            slug: category.slug
+          }))}
+          title={`Spurningar í ${category.name}`}
+          onItemClick={handleItemClick}
+        />
+      )}
     </Layout>
   );
 };

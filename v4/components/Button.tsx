@@ -1,19 +1,21 @@
+'use client'; // Mark this component as a Client Component
+
 import React, { ButtonHTMLAttributes, ReactNode } from 'react';
 import { Slot } from '@radix-ui/react-slot';
 import { twMerge } from 'tailwind-merge';
 import { clsx } from 'clsx';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  onClick?: () => void;
   children?: ReactNode;
   variant?: 'default' | 'outline' | 'ghost' | 'link';
   className?: string;
-  asChild?: boolean; // Add asChild support
+  asChild?: boolean;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ children, variant = 'default', className, asChild = false, ...props }, ref) => {
-    const Comp = asChild ? Slot : 'button'; // Allow dynamic element rendering
-
+    const Comp = asChild ? Slot : 'button'; // Use Slot if asChild is true, otherwise use button
     const baseClasses =
       'px-4 py-2 rounded-md font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200';
 
@@ -42,6 +44,5 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   }
 );
 
-Button.displayName = 'Button'; // Required for React.forwardRef
-
+Button.displayName = 'Button'; // Set display name for debugging
 export { Button };
