@@ -1,6 +1,5 @@
 import React, { ReactNode } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { cn } from 'clsx';
 
 interface CardProps {
   className?: string;
