@@ -1,0 +1,44 @@
+.studioContainer {
+    // Makes the studio fill the entire viewport
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    
+    // Ensures studio appears above other content
+    z-index: 1000;
+    
+    // Match your site's background
+    background: #fff;
+  
+    // Dark mode support
+    @media (prefers-color-scheme: dark) {
+      background: #1a1a1a;
+      
+      // Fix for Sanity's dark mode in Next.js
+      :global {
+        [data-ui="Navbar"] {
+          background: #252525 !important;
+          border-bottom: 1px solid #444 !important;
+        }
+        
+        [data-ui="Pane"] {
+          background: #1a1a1a !important;
+        }
+      }
+    }
+  }
+  
+  // Loading spinner styling
+  .loadingSpinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #2563eb;
+    
+    @media (prefers-color-scheme: dark) {
+      color: #3b82f6;
+    }
+  }
