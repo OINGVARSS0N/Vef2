@@ -29,13 +29,15 @@ export async function generateStaticParams() {
 
 // Skilgreina týpu fyrir síðu
 interface PostPageProps {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }
 
-// **Lagfærður PostPage**
 export default async function PostPage({ params }: PostPageProps) {
+  // Await the params promise first
+  const { slug } = await params
+  
   // Sækja færslu byggt á slug
-  const post: Post | null = await client.fetch(postQuery, { slug: params.slug })
+  const post: Post | null = await client.fetch(postQuery, { slug })
 
   if (!post) {
     return <p>Færsla fannst ekki</p>
